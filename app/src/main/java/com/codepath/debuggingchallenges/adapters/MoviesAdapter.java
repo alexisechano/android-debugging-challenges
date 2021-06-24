@@ -18,8 +18,8 @@ import com.codepath.debuggingchallenges.models.Movie;
 import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
-
-    private List<Movie> movies;
+    Context context;
+    List<Movie> movies;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // only needed because we need to set the background color
@@ -40,13 +40,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         }
     }
 
-    public MoviesAdapter(List<Movie> movies) {
+    public MoviesAdapter(Context context, List<Movie> movies) {
+        this.context = context;
         this.movies = movies;
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return movies.size();
     }
 
     @NonNull
@@ -74,8 +75,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         Resources resources = viewHolder.tvName.getResources();
         double movieRating = movie.getRating();
 
-        if (movieRating > 6) {
+        if (movieRating > 7.5) {
             viewHolder.view.setBackgroundColor(Color.GREEN);
+        }else{
+            viewHolder.view.setBackgroundColor(Color.WHITE);
         }
 
         String ratingText = String.format(resources.getString(R.string.rating), movieRating);
